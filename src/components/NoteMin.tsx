@@ -26,7 +26,7 @@ const NoteMin = ({ note }: inputProps) => {
   const handleEdit: MouseEventHandler<HTMLDivElement> = (e) => {
     console.log("edit note", e);
   };
-  const handleArchive: MouseEventHandler<HTMLDivElement> = (e) => {
+  const handleChangeState: MouseEventHandler<HTMLDivElement> = (e) => {
     console.log("archive note", e);
   };
   const handleDelete: MouseEventHandler<HTMLDivElement> = (e) => {
@@ -56,8 +56,13 @@ const NoteMin = ({ note }: inputProps) => {
       <td>{note.content}</td>
       <td>{parseNoteDate(note.content ?? "")}</td>
       <td className="text-end rounded-r">
-        <BsPencil className="inline w-10 h-10 p-1" onClick={handleEdit} />
-        <BsArchive className="inline w-10 h-10 p-1" onClick={handleArchive} />
+        {!note.is_archived && (
+          <BsPencil className="inline w-10 h-10 p-1" onClick={handleEdit} />
+        )}
+        <BsArchive
+          className="inline w-10 h-10 p-1"
+          onClick={handleChangeState}
+        />
         <BsBackspace className="inline w-10 h-10 p-1" onClick={handleDelete} />
       </td>
     </tr>
