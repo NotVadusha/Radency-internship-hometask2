@@ -20,9 +20,6 @@ const NoteMin = ({ note }: inputProps) => {
     });
     return dates.toString();
   };
-  const handleNoteClick: MouseEventHandler<HTMLDivElement> = (e) => {
-    console.log("note click", e);
-  };
   const handleEdit: MouseEventHandler<HTMLDivElement> = (e) => {
     console.log("edit note", e);
   };
@@ -33,7 +30,7 @@ const NoteMin = ({ note }: inputProps) => {
     console.log("delete note", e);
   };
   return (
-    <tr className="bg-blue-200 rounded" onClick={handleNoteClick}>
+    <tr className="bg-blue-200 rounded">
       <th className="text-center h-14 rounded-l">
         <div className="bg-gray-200 h-12 w-12 mx-auto rounded-full">
           {note.category === "Task" && (
