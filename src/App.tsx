@@ -1,16 +1,20 @@
+import MainPage from "./pages/MainPage";
+import ErrorPage from "./pages/ErrorPage.tsx";
+import NotFound from "./pages/NotFoundPage.tsx";
+import ArchivePage from "./pages/ArchivePage.tsx";
+import { Route, Routes } from "react-router-dom";
 
 function App() {
   return (
-    <>
-      <button className="bg-red-400" onClick={() => {
-        const modal = document.getElementById("modal")
-        modal?.classList.remove("hidden")
-      }}>Open</button>
-      <div className="fixed hidden inset-0 bg-gray-600/50 overflow-y-auto h-full w-full" id="modal">
-        123
-      </div>
-
-    </>
+    <Routes>
+      <Route path="/" element={<MainPage />} errorElement={<ErrorPage />} />
+      <Route
+        path="/archive"
+        element={<ArchivePage />}
+        errorElement={<ErrorPage />}
+      />
+      <Route path="*" element={<NotFound />} />
+    </Routes>
   );
 }
 
