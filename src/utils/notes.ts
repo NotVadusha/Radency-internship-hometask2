@@ -1,9 +1,9 @@
-export const notes = [
+export default [
   {
     id: self.crypto.randomUUID(),
     name: "Make a sandwitch",
     createDate: new Date("12.12.2023"),
-    category: "Task",
+    category: "Thoughts",
     content: "SomeContent 12.12.2021",
     is_archived: false,
   },
@@ -19,9 +19,9 @@ export const notes = [
     id: self.crypto.randomUUID(),
     name: "Make a sandwitch",
     createDate: new Date("12.12.2023"),
-    category: "Task",
+    category: "Idea",
     content: "SomeContent 12.12.2021",
-    is_archived: false,
+    is_archived: true,
   },
   {
     id: self.crypto.randomUUID(),
@@ -35,17 +35,17 @@ export const notes = [
     id: self.crypto.randomUUID(),
     name: "Make a sandwitch",
     createDate: new Date("12.12.2023"),
-    category: "Task",
+    category: "Quote",
     content: "SomeContent 12.12.2021",
-    is_archived: false,
+    is_archived: true,
   },
   {
     id: self.crypto.randomUUID(),
     name: "Make a sandwitch",
     createDate: new Date("12.12.2023"),
-    category: "Task",
+    category: "Quote",
     content: "SomeContent 12.12.2021",
-    is_archived: false,
+    is_archived: true,
   },
   {
     id: self.crypto.randomUUID(),
