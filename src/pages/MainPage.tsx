@@ -5,11 +5,12 @@ import { RootState } from "../store/store";
 import { Link } from "react-router-dom";
 import getStats from "../utils/getStats";
 import React from "react";
-import NoteForm from "../components/NoteForm";
+import NoteForm from "../components/Form";
 import ErrorModal from "../components/ErrorModal";
 
 function MainPage() {
   const notes = useSelector((state: RootState) => state.notes.notes);
+  console.log(notes);
 
   const [showErrModal, setShowErrModal] = React.useState(false);
   const [errorMessage, _setErrorMessage] = React.useState("");
@@ -20,12 +21,13 @@ function MainPage() {
   const [showForm, setShowForm] = React.useState(false);
   const [noteId, _setNoteId] = React.useState("");
   const setNoteId = (id: string) => {
-    _setNoteId(id);
     setShowForm(true);
+    _setNoteId(id);
   };
   const handleCreateClick = () => setShowForm(true);
   const handleCloseForm = () => {
-    setNoteId(""), setShowForm(false);
+    setNoteId("");
+    setShowForm(false);
   };
 
   const handleErrorClose = () => setShowErrModal(false);
@@ -54,7 +56,7 @@ function MainPage() {
         isShown={showForm}
         onClose={handleCloseForm}
         setError={setErrorMessage}
-        noteId={noteId.length > 0 ? noteId : ""}
+        noteId={noteId}
         notes={notes}
       ></NoteForm>
       <ErrorModal

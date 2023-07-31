@@ -8,19 +8,10 @@ interface InputProps {
   onClose: () => void;
   isShown: boolean;
   setError: (msg: string) => void;
-  noteId?: string;
-  notes: Array<INote>;
+  note: INote;
 }
-const NoteForm = ({
-  onClose,
-  isShown,
-  setError,
-  noteId,
-  notes,
-}: InputProps) => {
+const EditForm = ({ onClose, isShown, setError, note }: InputProps) => {
   const dispatch = useDispatch();
-  const note = noteId ? notes.find((note) => note.id === noteId) : null;
-
   const handleSubmit = () => {
     const form = document.getElementById("notesForm");
     if (!form) return;
@@ -30,18 +21,16 @@ const NoteForm = ({
     const category = form.querySelector(
       "#categoriesSelect"
     ) as HTMLInputElement;
+
     const noteInfo = {
       name: name.value,
       content: content.value,
       category: category.value,
     };
-    console.log(noteInfo);
+
     !noteInfo.name && setError("Input name!");
     if (noteInfo.name) {
-      dispatch(notesActions.addNote(noteInfo));
-      name.value = "";
-      content.value = "";
-      category.value = categories[0];
+      dispatch(notesActions.editNote({ ...note, ...noteInfo }));
       onClose();
     }
   };
@@ -51,35 +40,30 @@ const NoteForm = ({
   return (
     <Modal onClose={onClose} isShown={isShown}>
       <div>
-        <h1 className="text-3xl text-center mb-4">
-          {noteId ? "Editing note" : "Create new note"}
-        </h1>
+        <h1 className="text-3xl text-center mb-4">Editing note</h1>
         <form id="notesForm">
           <div className="flex flex-row gap-2">
             <input
               className="form-input rounded basis-3/4"
               id="nameInput"
               placeholder="Enter note name"
-              defaultValue={note ? note.name : ""}
+              defaultValue={note.name}
             ></input>
             <select
               className="form-select rounded basis-1/4"
               id="categoriesSelect"
+              defaultValue={note.category}
             >
-              {categories.map((category) =>
-                category === note?.category ? (
-                  <option selected>{category}</option>
-                ) : (
-                  <option>{category}</option>
-                )
-              )}
+              {categories.map((category) => (
+                <option>{category}</option>
+              ))}
             </select>
           </div>
           <textarea
             className="form-textarea my-4 w-full h-24 max-h-80 rounded bg-slate-200 border border-black"
             id="contentInput"
             placeholder="Enter note content"
-            defaultValue={note ? note.content : ""}
+            defaultValue={note.content}
           ></textarea>
         </form>
         <div className="w-fit mx-auto mt-8">
@@ -101,4 +85,4 @@ const NoteForm = ({
   );
 };
 
-export default NoteForm;
+export default EditForm;

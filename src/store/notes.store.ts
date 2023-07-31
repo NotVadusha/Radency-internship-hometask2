@@ -2,6 +2,8 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { INote } from "../types/INote";
 import defaultNotes from "../utils/notes";
 
+localStorage.setItem("note", JSON.stringify(defaultNotes));
+
 const initialState: {
   notes: Array<INote>;
 } = {
@@ -18,17 +20,13 @@ const notesSlice = createSlice({
         createDate: new Date(),
         is_archived: false,
       };
-      state.notes.push(newNote);
+      state.notes = [...state.notes, newNote];
     },
-    editNote(state, action: PayloadAction<INote>) {
-      const noteId = action.payload.id;
-      const editedNote: INote | undefined = state.notes.find(
-        (note: INote) => (note.id = noteId)
+    editNote(state, action) {
+      console.log(action.payload, state.notes);
+      state.notes = state.notes.map((note) =>
+        note.id === action.payload.id ? action.payload : note
       );
-      if (editedNote) {
-        const noteIndex = state.notes.indexOf(editedNote);
-        state.notes[noteIndex] = action.payload;
-      } else throw new Error("Can't find this note");
     },
     deleteNote(state, action) {
       const newNotes = state.notes.filter((note) => note.id !== action.payload);
@@ -48,4 +46,5 @@ const notesSlice = createSlice({
   },
 });
 export const notesActions = notesSlice.actions;
+
 export default notesSlice.reducer;
