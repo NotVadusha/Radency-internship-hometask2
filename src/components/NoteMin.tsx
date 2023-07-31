@@ -32,7 +32,7 @@ const NoteMin = ({ note, setEditingId }: inputProps) => {
   const handleDelete: MouseEventHandler<HTMLDivElement> = () => {
     dispatch(notesActions.deleteNote(note.id));
   };
-
+  const dates = parseNoteDate(note.content);
   return (
     <tr className="bg-blue-200 rounded">
       <th className="text-center h-14 rounded-l">
@@ -51,11 +51,17 @@ const NoteMin = ({ note, setEditingId }: inputProps) => {
           )}
         </div>
       </th>
-      <td>{note.name}</td>
+      <td>
+        {note.name.length > 20 ? note.name.substring(0, 20) + "..." : note.name}
+      </td>
       <td>{new Date(note.createDate).toLocaleDateString("en-GB")}</td>
       <td>{note.category}</td>
-      <td>{note.content}</td>
-      <td>{parseNoteDate(note.content ?? "")}</td>
+      <td>
+        {note.content.length > 25
+          ? note.content.substring(0, 25) + "..."
+          : note.content}
+      </td>
+      <td>{dates.length > 20 ? dates.substring(0, 20) + "..." : dates}</td>
       <td className="text-end rounded-r">
         {!note.is_archived && (
           <BsPencil
